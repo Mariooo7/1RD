@@ -6,11 +6,12 @@ interface MetricCardProps {
   title: string;
   value: string | number;
   unit?: string;
-  status?: "success" | "warning" | "error" | "neutral";
+  status?: "success" | "warning" | "error" | "neutral" | "custom";
   description?: string;
   className?: string;
   delay?: number;
   theme: ThemeConfig;
+  customStyle?: string;
 }
 
 export function MetricCard({ 
@@ -21,13 +22,15 @@ export function MetricCard({
   description,
   className,
   delay = 0,
-  theme
+  theme,
+  customStyle
 }: MetricCardProps) {
   const statusClasses = {
     success: theme.colors.success,
     warning: theme.colors.warning,
     error: theme.colors.error,
     neutral: theme.colors.neutral,
+    custom: customStyle || "",
   };
 
   const cardStyle = statusClasses[status] || theme.colors.cardBg + " " + theme.colors.cardBorder;

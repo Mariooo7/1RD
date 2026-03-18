@@ -16,8 +16,10 @@
         "width": 1000,
         "height": 700,
         "minWidth": 800,
-        "minHeight": 600,
-        "transparent": true
+        "minHeight": 650,
+        "transparent": true,
+        "decorations": true,
+        "resizable": true
       }
     ],
     "macOSPrivateApi": true,

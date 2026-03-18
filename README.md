@@ -1,19 +1,19 @@
 # fuckHiFi
 
 ## 简介
-**fuckHiFi** 是一款 macOS 桌面应用，用于实时分析系统音频质量，鉴别“真伪 HiFi”。
-它使用 Tauri (Rust) 进行高性能音频捕获与 FFT 分析，前端使用 React + Canvas 呈现极简风格的频谱可视化。
+**fuckHiFi** 是一款 macOS 桌面应用，用于实时监控系统正在播放音频的实际质量。
+它不是读取文件标签的工具，而是基于系统输出音频流做频谱分析的工具。应用截获 CoreAudio 的全局输出并执行 DSP 计算，展示当前听感链路中的真实高频信息、能量分布和压缩特征。
 
 ## 核心特性
-- **实时频谱分析**: 使用 8192 点 FFT 算法，结合 Hann 窗函数，提供极高精度的频谱可视化。
-- **真伪 Hi-Res 鉴定**:
-  - **Cutoff Detection**: 自动识别高频截止频率。
-  - **Rolloff (99%)**: 计算 99% 能量的滚降点，更准确地判断有效频宽。
-  - **HF Energy Ratio**: 分析高频能量占比，识别升频（Upsampling）痕迹。
-  - **Cliff Drop**: 检测 1kHz 频宽内的悬崖式跌落（>30dB），精准识别有损压缩硬切。
-- **智能评级系统**: 自动将音频流评级为 REFERENCE / HIFI / CD / STREAMING / LOSSY。
-- **自适应布局**: 响应式设计，支持从窄屏手机比例到宽屏的全尺寸显示，数据面板自动悬浮或堆叠。
-- **极简设计**: 提供 Obsidian, Frost, Crimson, Ocean 四款精美主题，支持高帧率流畅动画。
+- **系统级音频采集**: 通过 ScreenCaptureKit 读取系统输出缓冲。
+- **高分辨率频谱分析**: 8192 点 FFT + Hann 窗函数，在 48kHz 下约 5.86Hz/频点。
+- **核心质量指标**:
+  - **Cutoff**: 高频可用边界。
+  - **Rolloff (99%)**: 有效能量带宽。
+  - **HF Energy Ratio**: 20kHz 以上能量占比。
+  - **Cliff Drop**: 高频断层强度（用于识别硬切滤波）。
+- **多指标融合评级**: REFERENCE / HIFI / CD / STREAMING / LOSSY。
+- **可视化与主题**: 实时频谱、指标面板、四套主题。
 
 ## 开发环境要求
 - **macOS** (必须 12.3+, 依赖 ScreenCaptureKit)
@@ -46,4 +46,4 @@
 ## 技术栈
 - **Frontend**: React 18, Tailwind CSS, Framer Motion, HTML5 Canvas
 - **Backend**: Rust, Tauri 2.0, RustFFT, ScreenCaptureKit
-- **Architecture**: 高性能双层架构，Rust 负责 DSP 处理与 ScreenCapture，React 负责 60fps 可视化渲染。
+- **Architecture**: 高性能双层架构，Rust 负责 DSP 处理与状态防抖，React 负责 60fps 可视化渲染。
