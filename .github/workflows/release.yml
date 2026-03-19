@@ -23,6 +23,48 @@ jobs:
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
 
+      - name: Verify version consistency
+        shell: bash
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+
+          const packageJson = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+          const tauriConf = JSON.parse(fs.readFileSync('src-tauri/tauri.conf.json', 'utf8'));
+          const cargoToml = fs.readFileSync('src-tauri/Cargo.toml', 'utf8');
+
+          const cargoMatch = cargoToml.match(/\[package\][\s\S]*?^version\s*=\s*"([^"]+)"/m);
+          if (!cargoMatch) {
+            console.error('Cannot find [package].version in src-tauri/Cargo.toml');
+            process.exit(1);
+          }
+
+          const versions = {
+            packageJson: packageJson.version,
+            tauriConf: tauriConf.version,
+            cargoToml: cargoMatch[1],
+          };
+
+          const unique = new Set(Object.values(versions));
+          if (unique.size !== 1) {
+            console.error('Version mismatch detected:', versions);
+            process.exit(1);
+          }
+
+          const eventName = process.env.GITHUB_EVENT_NAME || '';
+          const refName = process.env.GITHUB_REF_NAME || '';
+          if (eventName === 'release' && refName) {
+            const normalizedTag = refName.replace(/^v/, '');
+            const appVersion = versions.packageJson;
+            if (normalizedTag !== appVersion) {
+              console.error(`Release tag (${refName}) does not match app version (${appVersion}).`);
+              process.exit(1);
+            }
+          }
+
+          console.log(`Version consistency check passed: ${versions.packageJson}`);
+          NODE
+
       - name: Install frontend deps
         run: npm ci
 
