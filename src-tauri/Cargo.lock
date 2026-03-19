@@ -1207,27 +1207,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "fuckhifi"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "core-foundation 0.9.4",
- "core-graphics 0.23.2",
- "core-media-sys",
- "cpal",
- "libc",
- "rustfft",
- "screencapturekit",
- "serde",
- "serde_json",
- "tauri",
- "tauri-build",
- "tauri-plugin-opener",
- "tokio",
- "window-vibrancy 0.7.1",
-]
-
-[[package]]
 name = "futf"
 version = "0.1.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2682,6 +2661,27 @@ name = "once_cell"
 version = "1.21.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9f7c3e4beb33f85d45ae3e3a1792185706c8e16d043238c593331cc7cd313b50"
+
+[[package]]
+name = "onerd"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "core-foundation 0.9.4",
+ "core-graphics 0.23.2",
+ "core-media-sys",
+ "cpal",
+ "libc",
+ "rustfft",
+ "screencapturekit",
+ "serde",
+ "serde_json",
+ "tauri",
+ "tauri-build",
+ "tauri-plugin-opener",
+ "tokio",
+ "window-vibrancy 0.7.1",
+]
 
 [[package]]
 name = "open"

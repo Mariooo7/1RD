@@ -92,7 +92,7 @@ const App = memo(function App() {
           </div>
           <div className="flex flex-col justify-center">
             <h1 className={cn("text-lg font-bold tracking-tight", currentTheme.colors.text)}>
-              fuckHiFi
+              1RD
             </h1>
           </div>
         </div>

@@ -1,9 +1,9 @@
 #!/bin/bash
-# 启动 fuckHiFi 并将日志输出到终端和文件
-APP_PATH="./src-tauri/target/release/bundle/macos/fuckhifi.app/Contents/MacOS/fuckhifi"
-LOG_FILE="fuckhifi_debug.log"
+# 启动 1RD 并将日志输出到终端和文件
+APP_PATH="./src-tauri/target/release/bundle/macos/1RD.app/Contents/MacOS/onerd"
+LOG_FILE="1rd_debug.log"
 
-echo "🚀 Starting fuckHiFi in debug mode..."
+echo "🚀 Starting 1RD in debug mode..."
 echo "📝 Logs will be saved to $LOG_FILE"
 echo "----------------------------------------"
 
